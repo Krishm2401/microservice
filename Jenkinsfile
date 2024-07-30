@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker build -t krishm2401/shippingservice:latest ."
+                        sh "docker build -t krishm2401/shippingservice1:latest ."
                     }
                 }
             }
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push krishm2401/shippingservice:latest "
+                        sh "docker push krishm2401/shippingservice1:latest "
                     }
                 }
             }
