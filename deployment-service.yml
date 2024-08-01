@@ -2,15 +2,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: emailservice1
+  name: emailservice
 spec:
   selector:
     matchLabels:
-      app: emailservice1
+      app: emailservice
   template:
     metadata:
       labels:
-        app: emailservice1
+        app: emailservice
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -68,7 +68,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: checkoutservice11
+  name: checkoutservice
 spec:
   selector:
     matchLabels:
