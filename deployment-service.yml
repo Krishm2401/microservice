@@ -378,7 +378,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: productcatalogservice
+    app: productcatalogservice1
   ports:
   - name: grpc
     port: 3550
@@ -395,7 +395,7 @@ spec:
   template:
     metadata:
       labels:
-        app: cartservice
+        app: cartservice1
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -587,15 +587,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-cart
+  name: redis-cart1
 spec:
   selector:
     matchLabels:
-      app: redis-cart
+      app: redis-cart11
   template:
     metadata:
       labels:
-        app: redis-cart
+        app: redis-cart1
     spec:
       containers:
       - name: redis
@@ -627,11 +627,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-cart
+  name: redis-cart1
 spec:
   type: ClusterIP
   selector:
-    app: redis-cart
+    app: redis-cart1
   ports:
   - name: tcp-redis
     port: 6379
