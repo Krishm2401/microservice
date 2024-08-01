@@ -1,16 +1,17 @@
+
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: emailservice1
+  name: emailservice
 spec:
   selector:
     matchLabels:
-      app: emailservice1
+      app: emailservice
   template:
     metadata:
       labels:
-        app: emailservice1
+        app: emailservice
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -55,11 +56,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: emailservice1
+  name: emailservice
 spec:
   type: ClusterIP
   selector:
-    app: emailservice1
+    app: emailservice
   ports:
   - name: grpc
     port: 5000
@@ -68,15 +69,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: checkoutservice1
+  name: checkoutservice
 spec:
   selector:
     matchLabels:
-      app: checkoutservice1
+      app: checkoutservice
   template:
     metadata:
       labels:
-        app: checkoutservice1
+        app: checkoutservice
     spec:
       serviceAccountName: default
       containers:
@@ -116,11 +117,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: checkoutservice1
+  name: checkoutservice
 spec:
   type: ClusterIP
   selector:
-    app: checkoutservice1
+    app: checkoutservice
   ports:
   - name: grpc
     port: 5050
@@ -129,15 +130,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: recommendationservice1
+  name: recommendationservice
 spec:
   selector:
     matchLabels:
-      app: recommendationservice1
+      app: recommendationservice
   template:
     metadata:
       labels:
-        app: recommendationservice1
+        app: recommendationservice
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -172,11 +173,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: recommendationservice1
+  name: recommendationservice
 spec:
   type: ClusterIP
   selector:
-    app: recommendationservice1
+    app: recommendationservice
   ports:
   - name: grpc
     port: 8080
@@ -185,15 +186,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend1
+  name: frontend
 spec:
   selector:
     matchLabels:
-      app: frontend1
+      app: frontend
   template:
     metadata:
       labels:
-        app: frontend1
+        app: frontend
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
@@ -257,11 +258,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend1
+  name: frontend
 spec:
   type: NodePort
   selector:
-    app: frontend1
+    app: frontend
   ports:
   - name: http
     port: 80
@@ -274,7 +275,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: frontend1
+    app: frontend
   ports:
   - name: http
     port: 80
@@ -283,15 +284,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: paymentservice1
+  name: paymentservice
 spec:
   selector:
     matchLabels:
-      app: paymentservice1
+      app: paymentservice
   template:
     metadata:
       labels:
-        app: paymentservice1
+        app: paymentservice
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -322,11 +323,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: paymentservice1
+  name: paymentservice
 spec:
   type: ClusterIP
   selector:
-    app: paymentservice1
+    app: paymentservice
   ports:
   - name: grpc
     port: 50051
@@ -335,15 +336,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: productcatalogservice1
+  name: productcatalogservice
 spec:
   selector:
     matchLabels:
-      app: productcatalogservice1
+      app: productcatalogservice
   template:
     metadata:
       labels:
-        app: productcatalogservice1
+        app: productcatalogservice
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -374,11 +375,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: productcatalogservice1
+  name: productcatalogservice
 spec:
   type: ClusterIP
   selector:
-    app: productcatalogservice1
+    app: productcatalogservice
   ports:
   - name: grpc
     port: 3550
@@ -387,15 +388,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cartservice1
+  name: cartservice
 spec:
   selector:
     matchLabels:
-      app: cartservice1
+      app: cartservice
   template:
     metadata:
       labels:
-        app: cartservice1
+        app: cartservice
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -406,7 +407,7 @@ spec:
         - containerPort: 7070
         env:
         - name: REDIS_ADDR
-          value: "redis-cart1:6379"
+          value: "redis-cart:6379"
         resources:
           requests:
             cpu: 200m
@@ -427,11 +428,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cartservice1
+  name: cartservice
 spec:
   type: ClusterIP
   selector:
-    app: cartservice1
+    app: cartservice
   ports:
   - name: grpc
     port: 7070
@@ -440,16 +441,16 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: loadgenerator1
+  name: loadgenerator
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: loadgenerator1
+      app: loadgenerator
+  replicas: 1
   template:
     metadata:
       labels:
-        app: loadgenerator1
+        app: loadgenerator
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
@@ -468,7 +469,7 @@ spec:
         image: krishm2401/loadgenerator1:latest
         env:
         - name: FRONTEND_ADDR
-          value: "frontend1:80"
+          value: "frontend:80"
         - name: USERS
           value: "10"
         resources:
@@ -482,15 +483,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: currencyservice1
+  name: currencyservice
 spec:
   selector:
     matchLabels:
-      app: currencyservice1
+      app: currencyservice
   template:
     metadata:
       labels:
-        app: currencyservice1
+        app: currencyservice
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -498,7 +499,8 @@ spec:
       - name: server
         image: krishm2401/currencyservice1:latest
         ports:
-        - containerPort: 7000
+        - name: grpc
+          containerPort: 7000
         env:
         - name: PORT
           value: "7000"
@@ -521,11 +523,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: currencyservice1
+  name: currencyservice
 spec:
   type: ClusterIP
   selector:
-    app: currencyservice1
+    app: currencyservice
   ports:
   - name: grpc
     port: 7000
@@ -534,15 +536,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: shippingservice1
+  name: shippingservice
 spec:
   selector:
     matchLabels:
-      app: shippingservice1
+      app: shippingservice
   template:
     metadata:
       labels:
-        app: shippingservice1
+        app: shippingservice
     spec:
       serviceAccountName: default
       containers:
@@ -573,11 +575,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: shippingservice1
+  name: shippingservice
 spec:
   type: ClusterIP
   selector:
-    app: shippingservice1
+    app: shippingservice
   ports:
   - name: grpc
     port: 50051
@@ -586,15 +588,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-cart1
+  name: redis-cart
 spec:
   selector:
     matchLabels:
-      app: redis-cart1
+      app: redis-cart
   template:
     metadata:
       labels:
-        app: redis-cart1
+        app: redis-cart
     spec:
       containers:
       - name: redis
@@ -626,11 +628,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-cart1
+  name: redis-cart
 spec:
   type: ClusterIP
   selector:
-    app: redis-cart1
+    app: redis-cart
   ports:
   - name: tcp-redis
     port: 6379
@@ -639,15 +641,15 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: adservice1
+  name: adservice
 spec:
   selector:
     matchLabels:
-      app: adservice1
+      app: adservice
   template:
     metadata:
       labels:
-        app: adservice1
+        app: adservice
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -680,11 +682,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: adservice1
+  name: adservice
 spec:
   type: ClusterIP
   selector:
-    app: adservice1
+    app: adservice
   ports:
   - name: grpc
     port: 9555
