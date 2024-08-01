@@ -1,4 +1,4 @@
------
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -68,7 +68,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: checkoutservice11
+  name: checkoutservice1
 spec:
   selector:
     matchLabels:
@@ -406,7 +406,7 @@ spec:
         - containerPort: 7070
         env:
         - name: REDIS_ADDR
-          value: "redis-cart:6379"
+          value: "redis-cart1:6379"
         resources:
           requests:
             cpu: 200m
@@ -442,10 +442,10 @@ kind: Deployment
 metadata:
   name: loadgenerator1
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: loadgenerator1
-  replicas: 1
   template:
     metadata:
       labels:
@@ -468,7 +468,7 @@ spec:
         image: krishm2401/loadgenerator1:latest
         env:
         - name: FRONTEND_ADDR
-          value: "frontend:80"
+          value: "frontend1:80"
         - name: USERS
           value: "10"
         resources:
@@ -498,8 +498,7 @@ spec:
       - name: server
         image: krishm2401/currencyservice1:latest
         ports:
-        - name: grpc
-          containerPort: 7000
+        - containerPort: 7000
         env:
         - name: PORT
           value: "7000"
@@ -591,7 +590,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: redis-cart11
+      app: redis-cart1
   template:
     metadata:
       labels:
